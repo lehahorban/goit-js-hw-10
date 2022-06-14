@@ -18,3 +18,17 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+ul {
+  list-style: none;
+}
+
+.wrapp {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  margin-left: 10px;
+}
