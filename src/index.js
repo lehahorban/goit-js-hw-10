@@ -23,7 +23,7 @@ function findCountry(e) {
                     Notify.failure("Oops, there is no country with that name");
       }
       if (response.length > 10) {
-         Notify.failure("Too many matches found. Please enter a more specific name.")
+         Notify.info("Too many matches found. Please enter a more specific name.")
       }
       if (findToCountry === "") {
         clearMarcupList()
