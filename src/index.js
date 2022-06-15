@@ -12,27 +12,36 @@ console.log(countryList);
 console.log(countryInfo);
 
 
+
+
 input.addEventListener("input", debounce(findCountry, DEBOUNCE_DELAY))
 
+
 function findCountry(e) {
+  
   const findToCountry = e.target.value.trim()
+  const findToCountryData = e.data
+ 
+  
   // console.log(findToCountry);
-  if (findToCountry !== "") {
+  if (findToCountry !== "" && findToCountryData !== " ") {
+    
     fetchCountries(findToCountry)
-    .then(response => {
+      .then(response => {
+       
       if (Number(response.status) === 404) {
                     Notify.failure("Oops, there is no country with that name");
       }
       if (response.length > 10) {
          Notify.info("Too many matches found. Please enter a more specific name.")
-      }
-    
-      if (findToCountry === "") {
+        }         
+        if (findToCountry === "") {
         clearMarcupList()
         clearMarcupInfo()
       }
       clearMarcupList()
-        clearMarcupInfo()
+      clearMarcupInfo()
+     
       if (response.length === 1) {        
         renderCountry(response)
         // console.log(response.length); 
@@ -50,9 +59,7 @@ function findCountry(e) {
    .catch(error => {
     console.log(error);
   })
-  }
-  
-  
+  }  
 }
 function renderCountry(items) {
   const marcup = items.map(({ name, capital, population, languages, flags }) =>       
