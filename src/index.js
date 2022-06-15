@@ -1,7 +1,7 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { fetchCountries } from "./fetchCountries.js"
+import  fetchCountries from "./fetchCountries"
 
 const DEBOUNCE_DELAY = 300;
 const input = document.querySelector("#search-box")
@@ -16,8 +16,9 @@ input.addEventListener("input", debounce(findCountry, DEBOUNCE_DELAY))
 
 function findCountry(e) {
   const findToCountry = e.target.value.trim()
-  console.log(findToCountry);
-  fetchCountries(findToCountry)
+  // console.log(findToCountry);
+  if (findToCountry !== "") {
+    fetchCountries(findToCountry)
     .then(response => {
       if (Number(response.status) === 404) {
                     Notify.failure("Oops, there is no country with that name");
@@ -25,6 +26,7 @@ function findCountry(e) {
       if (response.length > 10) {
          Notify.info("Too many matches found. Please enter a more specific name.")
       }
+    
       if (findToCountry === "") {
         clearMarcupList()
         clearMarcupInfo()
@@ -33,7 +35,7 @@ function findCountry(e) {
         clearMarcupInfo()
       if (response.length === 1) {        
         renderCountry(response)
-        console.log(response.length); 
+        // console.log(response.length); 
         clearMarcupList()
         
       }
@@ -48,6 +50,8 @@ function findCountry(e) {
    .catch(error => {
     console.log(error);
   })
+  }
+  
   
 }
 function renderCountry(items) {
@@ -82,3 +86,4 @@ function clearMarcupInfo() {
 function clearMarcupList() {
   countryList.innerHTML = ""
 }
+
